@@ -10,7 +10,17 @@
 /[Ll]ogs/
 /[Mm]emoryCaptures/
 
-/.idea
+sysinfo.txt
+*.stackdump
+Assets/AssetStoreTools*
+*.apk
+*.unitypackage
+[uU]ser[sS]ettings/
+ 
+# ============= #
+# INTELIJ Rider #
+# ============= #
+.idea/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
