@@ -7,10 +7,19 @@ public class EnterTriggerComponent : MonoBehaviour
 {
     [FormerlySerializedAs("_tag")] [SerializeField] private new string tag;
     [FormerlySerializedAs("_action")] [SerializeField] private GameObjectChange action;
+    [SerializeField] private bool isTriggerEnterOnly;
     
     private void OnTriggerEnter2D(Collider2D  other)
     {
         if (other.gameObject.CompareTag(tag))
+        {
+            action?.Invoke(other.gameObject);
+        }
+    }
+    
+    private void OnTriggerStay2D(Collider2D  other)
+    {
+        if (other.gameObject.CompareTag(tag) && !isTriggerEnterOnly)
         {
             action?.Invoke(other.gameObject);
         }

@@ -5,11 +5,14 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - Ladder
+  - Platform
+  - Cat
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Interactable
   - Water
   - UI
   - 
