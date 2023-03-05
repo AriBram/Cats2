@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -11,16 +12,20 @@ public class Player : MonoBehaviour
     [SerializeField] private State state = State.Original;
     [SerializeField] private float delayInSeconds = 2;
 
-    [FormerlySerializedAs("_isGrounded")] [Header("Boolean settings")] [SerializeField]
-    private bool isGrounded = true;
-
+    [Header("Boolean settings")] [FormerlySerializedAs("_isGrounded")] 
+    [SerializeField] private bool isGrounded = true;
     [FormerlySerializedAs("_isLadder")] [SerializeField] private bool isLadder;
     [FormerlySerializedAs("_isPlatform")] [SerializeField] private bool isPlatform;
+    [SerializeField] private bool isKey;
 
     [Header("Interaction settings")] [SerializeField]
     private float interactionRadius;
 
     [SerializeField] private LayerMask interactionLayer;
+
+    [FormerlySerializedAs("monologueCanvas")] [Header("Child objects")] 
+    [SerializeField] private GameObject monologueImage;
+    [SerializeField] private List<GameObject> keys;
 
     private Rigidbody2D _rb;
     private Animator _animator;
@@ -28,6 +33,12 @@ public class Player : MonoBehaviour
     private Vector2 _direction;
     private float _velocityY;
     private float _velocityX;
+    
+    public bool IsKey
+    {
+        get => isKey;
+        set => isKey = value;
+    }
 
     private readonly Collider2D[] _interactionResult = new Collider2D[2];
 
@@ -166,6 +177,10 @@ public class Player : MonoBehaviour
             if (state != State.Reflection && state != State.CopyReflection)
             {
                 transform.localScale = new Vector3(direction.x > 0 ? 1 : -1, 1, 1);
+                if (monologueImage != null)
+                {
+                    monologueImage.transform.localScale = new Vector3(direction.x > 0 ?  1 : -1, 1, 1);
+                }
             }
 
             _animator.SetBool(IsMove, true);
@@ -234,6 +249,26 @@ public class Player : MonoBehaviour
             _rb.bodyType = RigidbodyType2D.Dynamic;
             //_rb.velocity = new Vector2(_rb.velocity.x, 0);
         }
+    }
+
+    public void PickUpKey()
+    {
+        foreach (var key in keys)
+        {
+            key.SetActive(true);
+        }
+        
+        isKey = true;
+    }
+
+    public void UseKey()
+    {
+        foreach (var key in keys)
+        {
+            key.SetActive(false);
+        }
+        
+        isKey = false;
     }
 
     public void PrintStr(string str)

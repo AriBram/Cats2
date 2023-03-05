@@ -8,6 +8,10 @@ TagManager:
   - Ladder
   - Platform
   - Cat
+  - ColliderToTrigger
+  - Key
+  - CatKey
+  - Light
   layers:
   - Default
   - TransparentFX

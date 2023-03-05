@@ -7,8 +7,9 @@ public class DisappearingPlatform : MonoBehaviour
     [SerializeField] private float delayInSecondsToDis = 1.5f;
     [SerializeField] private int needCatsCount;
     [SerializeField] private int currentCatsCount;
+    [SerializeField] private bool canAppearance = true;
     private Animator _animator;
-    
+
     private static readonly int ThereIs = Animator.StringToHash("there-is");
 
     private void Awake()
@@ -18,7 +19,10 @@ public class DisappearingPlatform : MonoBehaviour
 
     public void Appearance()
     {
-        StartCoroutine(AppearanceWithDelay());
+        if (canAppearance)
+        {
+            StartCoroutine(AppearanceWithDelay());
+        }
     }
     
     public void Disappearance()
