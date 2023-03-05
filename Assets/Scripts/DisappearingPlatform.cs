@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class DisappearingPlatform : MonoBehaviour
 {
-    [SerializeField] private float delayInSeconds;
+    [SerializeField] private float delayInSecondsToApp = 1.2f;
+    [SerializeField] private float delayInSecondsToDis = 1.5f;
     [SerializeField] private int needCatsCount;
     [SerializeField] private int currentCatsCount;
     private Animator _animator;
@@ -40,13 +41,13 @@ public class DisappearingPlatform : MonoBehaviour
 
     IEnumerator AppearanceWithDelay()
     {
-        yield return new WaitForSeconds(delayInSeconds);
+        yield return new WaitForSeconds(delayInSecondsToApp);
         _animator.SetBool(ThereIs, true);
     }
     
     IEnumerator DisappearanceWithDelay()
     {
-        yield return new WaitForSeconds(delayInSeconds);
-        _animator.SetBool(ThereIs, true);
+        yield return new WaitForSeconds(delayInSecondsToDis);
+        _animator.SetBool(ThereIs, false);
     }
 }

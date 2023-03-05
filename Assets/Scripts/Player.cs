@@ -49,6 +49,7 @@ public class Player : MonoBehaviour
     private static readonly int IsMove = Animator.StringToHash("is-move");
     private static readonly int IsGrounded = Animator.StringToHash("is-grounded");
     private static readonly int IsInteract = Animator.StringToHash("is-interact");
+    private static readonly int IsClimb = Animator.StringToHash("is-climb");
 
     private void Awake()
     {
@@ -64,8 +65,9 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _velocityY = _rb.velocity.y;
-        _velocityX = _rb.velocity.x;
+        var velocity = _rb.velocity;
+        _velocityY = velocity.y;
+        _velocityX = velocity.x;
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -143,11 +145,13 @@ public class Player : MonoBehaviour
         }
         else if (direction.y != 0 && isLadder)
         {
+            _animator.SetBool(IsClimb, true);
             _rb.bodyType = RigidbodyType2D.Kinematic;
             _rb.velocity = new Vector2(_velocityX, direction.y * speed * 40 * Time.fixedDeltaTime);
         }
         else
         {
+            _animator.SetBool(IsClimb, false);
             _rb.bodyType = RigidbodyType2D.Dynamic;
         }
 
