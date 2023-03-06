@@ -12,4 +12,9 @@ public class LoadSceneComponent : MonoBehaviour
         action?.Invoke();
         SceneManager.LoadScene(nameScene);
     }
+    
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }

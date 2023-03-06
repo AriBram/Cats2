@@ -45,7 +45,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.23458219, y: 0.09397936}
+  m_Offset: {x: 0.23458219, y: 0.06657255}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -56,7 +56,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.029682636, y: 0.21764088}
+  m_Size: {x: 0.029682636, y: 0.16282725}
   m_EdgeRadius: 0
 --- !u!1 &7524139201254173520
 GameObject:
@@ -103,7 +103,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.23510277, y: 0.0900259}
+  m_Offset: {x: -0.23510277, y: 0.062048078}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -114,7 +114,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.031127691, y: 0.22490215}
+  m_Size: {x: 0.031127691, y: 0.1689465}
   m_EdgeRadius: 0
 --- !u!1 &7524139202040074518
 GameObject:
@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 3724796519085176283}
   m_Layer: 0
   m_Name: Trampoline
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -173,7 +173,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 71d6ddca935cfff4185bab8287c9b880, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -218,7 +218,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0010501146, y: 0.14079738}
+  m_Offset: {x: -0.0010501742, y: 0.14079738}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -229,7 +229,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.46187901, y: 0.06276035}
+  m_Size: {x: 0.46644676, y: 0.06276035}
   m_EdgeRadius: 0
 --- !u!114 &7524139202040074522
 MonoBehaviour:
@@ -243,7 +243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07cb852db8788dc4388b61d20b3d75b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropForce: 6
+  dropForce: 1.5
 --- !u!114 &3724796519085176283
 MonoBehaviour:
   m_ObjectHideFlags: 0

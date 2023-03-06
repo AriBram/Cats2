@@ -16,9 +16,26 @@ public class DialogueTrigger : MonoBehaviour
     private bool isCatScene;
 
     [Header("Text Fields")] [SerializeField]
-    private Text nameField;
+    private Text dialogue1Field;
 
-    [SerializeField] private Text dialogueField;
+    [FormerlySerializedAs("dialogueField")] [SerializeField]
+    private Text dialogue2Field;
+
+    [Header("Images")] [SerializeField] private Image image1;
+
+    public Image Image1
+    {
+        get => image1;
+        set => image1 = value;
+    }
+
+    public Image Image2
+    {
+        get => image2;
+        set => image2 = value;
+    }
+
+    [SerializeField] private Image image2;
 
     private Animator _animator;
     private bool _isOpen;
@@ -29,22 +46,16 @@ public class DialogueTrigger : MonoBehaviour
         set => dialogue = value;
     }
 
-    public Text NameField
+    public Text Dialogue1Field
     {
-        get => nameField;
-        set => nameField = value;
+        get => dialogue1Field;
+        set => dialogue1Field = value;
     }
 
-    public Text DialogueField
+    public Text Dialogue2Field
     {
-        get => dialogueField;
-        set => dialogueField = value;
-    }
-
-    public Animator Animator
-    {
-        get => _animator;
-        set => _animator = value;
+        get => dialogue2Field;
+        set => dialogue2Field = value;
     }
 
     public bool IsOpen
@@ -55,7 +66,6 @@ public class DialogueTrigger : MonoBehaviour
 
     private void Start()
     {
-        _animator = GetComponent<Animator>();
         if (isCatScene)
         {
             TriggerDialogue();
@@ -83,13 +93,12 @@ public class DialogueTrigger : MonoBehaviour
 [Serializable]
 public class Dialogue
 {
-    [SerializeField] private string[] names;
-
     [TextArea(3, 10)] [SerializeField] private string[] sentences;
 
-    [SerializeField] private int[] sentencesCountWithName;
+    [SerializeField] private int[] sentencesCount;
 
-    [Header("Colors")] [SerializeField] private string[] letterColors;
+    [Header("Colors")] [TextArea(3, 10)] [SerializeField]
+    private string[] letterColors;
 
     public string[] LetterColors
     {
@@ -97,16 +106,10 @@ public class Dialogue
         set => letterColors = value;
     }
 
-    public int[] SentencesCountWithName
+    public int[] SentencesCount
     {
-        get => sentencesCountWithName;
-        set => sentencesCountWithName = value;
-    }
-
-    public string[] Names
-    {
-        get => names;
-        set => names = value;
+        get => sentencesCount;
+        set => sentencesCount = value;
     }
 
     public string[] Sentences

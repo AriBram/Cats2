@@ -13,7 +13,7 @@ public class PuzzleWithButtons : MonoBehaviour
 
     public void CheckCondition()
     {
-        if (needCatsCount == _currentCats.Count)
+        if (needCatsCount == currentCats)
         {
             actionIfIs?.Invoke();
         }

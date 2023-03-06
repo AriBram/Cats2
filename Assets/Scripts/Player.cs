@@ -8,23 +8,33 @@ using UnityEngine.Serialization;
 public class Player : MonoBehaviour
 {
     [SerializeField] private float speed;
-    [FormerlySerializedAs("jumpForce")] [SerializeField] private float jumpHeight;
+
+    [FormerlySerializedAs("jumpForce")] [SerializeField]
+    private float jumpHeight;
+
     [SerializeField] private State state = State.Original;
     [SerializeField] private float delayInSeconds = 2;
 
-    [Header("Boolean settings")] [FormerlySerializedAs("_isGrounded")] 
-    [SerializeField] private bool isGrounded = true;
-    [FormerlySerializedAs("_isLadder")] [SerializeField] private bool isLadder;
-    [FormerlySerializedAs("_isPlatform")] [SerializeField] private bool isPlatform;
+    [Header("Boolean settings")] [FormerlySerializedAs("_isGrounded")] [SerializeField]
+    private bool isGrounded = true;
+
+    [FormerlySerializedAs("_isLadder")] [SerializeField]
+    private bool isLadder;
+
+    [FormerlySerializedAs("_isPlatform")] [SerializeField]
+    private bool isPlatform;
+
     [SerializeField] private bool isKey;
+    [SerializeField] private bool isMonologue;
 
     [Header("Interaction settings")] [SerializeField]
     private float interactionRadius;
 
     [SerializeField] private LayerMask interactionLayer;
 
-    [FormerlySerializedAs("monologueCanvas")] [Header("Child objects")] 
-    [SerializeField] private GameObject monologueImage;
+    [FormerlySerializedAs("monologueCanvas")] [Header("Child objects")] [SerializeField]
+    private GameObject monologueImage;
+
     [SerializeField] private List<GameObject> keys;
 
     private Rigidbody2D _rb;
@@ -33,7 +43,13 @@ public class Player : MonoBehaviour
     private Vector2 _direction;
     private float _velocityY;
     private float _velocityX;
-    
+
+    public bool IsMonologue
+    {
+        get => isMonologue;
+        set => isMonologue = value;
+    }
+
     public bool IsKey
     {
         get => isKey;
@@ -83,42 +99,51 @@ public class Player : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (state is State.Copy or State.CopyReflection)
+        if (!isMonologue)
         {
-            StartCoroutine(ActionWithDelay(InputAct.Move, context));
-        }
-        else
-        {
-            Move(context.ReadValue<Vector2>());
+            if (state is State.Copy or State.CopyReflection)
+            {
+                StartCoroutine(ActionWithDelay(InputAct.Move, context));
+            }
+            else
+            {
+                Move(context.ReadValue<Vector2>());
+            }
         }
     }
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (!isMonologue)
         {
-            if (state is State.Copy or State.CopyReflection)
+            if (context.started)
             {
-                StartCoroutine(ActionWithDelay(InputAct.Jump, context));
+                if (state is State.Copy or State.CopyReflection)
+                {
+                    StartCoroutine(ActionWithDelay(InputAct.Jump, context));
+                }
+                else
+                {
+                    Jump();
+                }
             }
-            else
-            {
-                Jump();
-            }
-        }   
+        }
     }
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (!isMonologue)
         {
-            if (state is State.Copy or State.CopyReflection)
+            if (context.performed)
             {
-                StartCoroutine(ActionWithDelay(InputAct.Interact, context));
-            }
-            else
-            {
-                Interact();
+                if (state is State.Copy or State.CopyReflection)
+                {
+                    StartCoroutine(ActionWithDelay(InputAct.Interact, context));
+                }
+                else
+                {
+                    Interact();
+                }
             }
         }
     }
@@ -179,7 +204,7 @@ public class Player : MonoBehaviour
                 transform.localScale = new Vector3(direction.x > 0 ? 1 : -1, 1, 1);
                 if (monologueImage != null)
                 {
-                    monologueImage.transform.localScale = new Vector3(direction.x > 0 ?  1 : -1, 1, 1);
+                    monologueImage.transform.localScale = new Vector3(direction.x > 0 ? 1 : -1, 1, 1);
                 }
             }
 
@@ -224,7 +249,7 @@ public class Player : MonoBehaviour
     {
         isGrounded = status;
         isPlatform = false;
-        
+
         if (isGrounded && !isLadder)
         {
             _rb.bodyType = RigidbodyType2D.Dynamic;
@@ -251,14 +276,32 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void PickUpKey()
+    public void SetMonologueState(bool status)
     {
-        foreach (var key in keys)
+        isMonologue = status;
+        if (monologueImage != null)
         {
-            key.SetActive(true);
+            monologueImage.SetActive(isMonologue);
         }
         
-        isKey = true;
+        if (isMonologue)
+        {
+            _rb.velocity = Vector2.zero;
+            _animator.SetBool(IsMove, false);
+        }
+    }
+
+    public void PickUpKey()
+    {
+        if (!isKey)
+        {
+            foreach (var key in keys)
+            {
+                key.SetActive(true);
+            }
+
+            isKey = true;
+        }
     }
 
     public void UseKey()
@@ -267,7 +310,7 @@ public class Player : MonoBehaviour
         {
             key.SetActive(false);
         }
-        
+
         isKey = false;
     }
 

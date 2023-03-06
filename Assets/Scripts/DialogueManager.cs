@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class DialogueManager : MonoBehaviour
 {
     [SerializeField] private float delayPauseInSeconds = 2;
+
     private Queue<string> _sentences;
     private Queue<string> _letterColors;
 
@@ -14,7 +16,9 @@ public class DialogueManager : MonoBehaviour
     private MonologueTrigger _monologueTrigger;
     private bool _isDialog;
     private bool _isMonologue;
-    private int _nameIndex;
+    private bool _allowedShowNext;
+    private bool _is1Field = true;
+    private int _sentencesIndex;
     private bool _isAllText;
     private string _currentSentence;
     private string _currentLetterColors;
@@ -47,48 +51,39 @@ public class DialogueManager : MonoBehaviour
         _letterColors = new Queue<string>();
     }
 
-    /*protected override void Enter()
+    public void OnInteract(InputAction.CallbackContext context)
     {
-        if (_isDialog)
+        if (context.performed)
         {
-            if (_allowedShowNext)
-            {
-                ShowNextSentence();
-            }
-            else if (!_isAllText)
-            {
-                ShowAllText();
-            } 
-        }
-    }*/
-
-    /*private void ShowAllText()
-    {
-        _isAllText = true;
-        //StopCoroutine(ShowSentenceByLetter());
-        _dialogueTrigger.DialogueField.text = _currentSentence;
-        _allowedShowNext = true;
-    }*/
-
-    private string SetLetterColor(char code)
-    {
-        switch (code)
-        {
-            case 'd':
-                return "#4D234A";
-            case 'o':
-                return "#D4715D";
-            case 'y':
-                return "#F3B486";
-            case 'g':
-                return "#F3B486";
-            case 'b':
-                return "#EFEBEA";
-            default:
-                return "#FFFFFF";
+            Skip();
         }
     }
 
+    private void Skip()
+    {
+        if (_isDialog || _isMonologue)
+        {
+            if (_allowedShowNext)
+            {
+                ShowNextSentence(_isMonologue ? LogKey.Monologue : LogKey.Dialogue);
+            }
+        }
+    }
+
+    /*private void ShowAllText(LogKey logKey)
+    {
+        _isAllText = true;
+        if (logKey == LogKey.Dialogue)
+        {
+            _dialogueTrigger.DialogueField.text = _currentSentence;
+        }
+        else
+        {
+            _monologueTrigger.MonologueField.text = _currentSentence;
+        }
+        
+        _allowedShowNext = true;
+    }*/
 
     public void StartDialogue(DialogueTrigger dialogueTrigger)
     {
@@ -96,7 +91,7 @@ public class DialogueManager : MonoBehaviour
         _isDialog = true;
 
         _dialogueTrigger = dialogueTrigger;
-        _nameIndex = 0;
+        _sentencesIndex = 0;
 
         _sentences.Clear();
         _letterColors.Clear();
@@ -113,30 +108,51 @@ public class DialogueManager : MonoBehaviour
 
         ShowNextSentence(LogKey.Dialogue);
     }
+    
+    public void StartMonologue(MonologueTrigger monologueTrigger)
+    {
+        _isMonologue = true;
+
+        SetMonologueStateToCats();
+
+        _monologueTrigger = monologueTrigger;
+        _sentencesIndex = 0;
+
+        _sentences.Clear();
+        _letterColors.Clear();
+
+        foreach (var sentence in _monologueTrigger.Monologue.Sentences)
+        {
+            _sentences.Enqueue(sentence);
+        }
+
+        foreach (var sentence in _monologueTrigger.Monologue.LetterColors)
+        {
+            _letterColors.Enqueue(sentence);
+        }
+
+        ShowNextSentence(LogKey.Monologue);
+    }
 
     private void ShowNextSentence(LogKey logKey)
     {
+        _isAllText = false;
+        _allowedShowNext = false;
+        
         if (logKey == LogKey.Dialogue)
         {
-            _isAllText = false;
-            //_allowedShowNext = false;
-
-            if (_nameIndex != _dialogueTrigger.Dialogue.Names.Length)
-            {
-                _dialogueTrigger.NameField.text = _dialogueTrigger.Dialogue.Names[_nameIndex];
-            }
-
             if (_sentences.Count == 0 || _letterColors.Count == 0)
             {
                 EndDialogue();
             }
             else
             {
-                _dialogueTrigger.Dialogue.SentencesCountWithName[_nameIndex]--;
-                if (_dialogueTrigger.Dialogue.SentencesCountWithName[_nameIndex] == 0)
+                if (_dialogueTrigger.Dialogue.SentencesCount[_sentencesIndex] == 0)
                 {
-                    _nameIndex++;
+                    _sentencesIndex++;
+                    _is1Field = !_is1Field;
                 }
+                _dialogueTrigger.Dialogue.SentencesCount[_sentencesIndex]--;
 
                 _currentSentence = _sentences.Dequeue();
                 _currentLetterColors = _letterColors.Dequeue();
@@ -164,7 +180,18 @@ public class DialogueManager : MonoBehaviour
     {
         if (logKey == LogKey.Dialogue)
         {
-            _dialogueTrigger.DialogueField.text = "";
+            if (_is1Field)
+            {
+                _dialogueTrigger.Dialogue1Field.text = "";
+                _dialogueTrigger.Image1.gameObject.SetActive(true);
+                _dialogueTrigger.Image2.gameObject.SetActive(false);
+            }
+            else
+            {
+                _dialogueTrigger.Dialogue2Field.text = "";
+                _dialogueTrigger.Image2.gameObject.SetActive(true);
+                _dialogueTrigger.Image1.gameObject.SetActive(false);
+            }
         }
         else
         {
@@ -179,8 +206,16 @@ public class DialogueManager : MonoBehaviour
         {
             if (!_isAllText && logKey == LogKey.Dialogue)
             {
-                _dialogueTrigger.DialogueField.text += "<color=" + SetLetterColor(currentLetterColorsCharArr[i]) + ">" +
-                                                       currentSentenceCharArr[i] + "</color>";
+                if (_is1Field)
+                {
+                    _dialogueTrigger.Dialogue1Field.text += "<color=" + SetLetterColor(currentLetterColorsCharArr[i]) + ">" +
+                                                           currentSentenceCharArr[i] + "</color>";
+                }
+                else
+                {
+                    _dialogueTrigger.Dialogue2Field.text += "<color=" + SetLetterColor(currentLetterColorsCharArr[i]) + ">" +
+                                                           currentSentenceCharArr[i] + "</color>";
+                }
                 yield return new WaitForSeconds(0.08f);
             }
             else if (logKey == LogKey.Monologue)
@@ -197,43 +232,23 @@ public class DialogueManager : MonoBehaviour
 
         yield return null;
         StartCoroutine(NextSentence(logKey));
-        //_allowedShowNext = true;
+        _allowedShowNext = true;
     }
 
     IEnumerator NextSentence(LogKey logKey)
     {
         yield return new WaitForSeconds(delayPauseInSeconds);
-        ShowNextSentence(logKey);
+        if (_allowedShowNext)
+        {
+            ShowNextSentence(logKey);
+        }
     }
 
     private void EndDialogue()
     {
-        _dialogueTrigger.Animator.SetBool(IsEndDialogueAnim, true);
         _dialogueTrigger.IsOpen = false;
         _isDialog = false;
-    }
-
-    public void StartMonologue(MonologueTrigger monologueTrigger)
-    {
-        _isMonologue = true;
-
-        _monologueTrigger = monologueTrigger;
-        _nameIndex = 0;
-
-        _sentences.Clear();
-        _letterColors.Clear();
-
-        foreach (var sentence in _monologueTrigger.Monologue.Sentences)
-        {
-            _sentences.Enqueue(sentence);
-        }
-
-        foreach (var sentence in _monologueTrigger.Monologue.LetterColors)
-        {
-            _letterColors.Enqueue(sentence);
-        }
-
-        ShowNextSentence(LogKey.Monologue);
+        _dialogueTrigger.ActionAfterEndDialogue();
     }
 
     private void EndMonologue()
@@ -241,6 +256,51 @@ public class DialogueManager : MonoBehaviour
         _monologueTrigger.MonologueField.text = "";
         _monologueTrigger.IsOpen = false;
         _monologueTrigger.ActionAfterEndMonologue();
+        
         _isMonologue = false;
+        SetMonologueStateToCats();
     }
+    
+    private string SetLetterColor(char code)
+    {
+        switch (code)
+        {
+            case 'd':
+                return "#4D234A";
+            case 'o':
+                return "#D4715D";
+            case 'y':
+                return "#F3B486";
+            case 'g':
+                return "#F3B486";
+            case 'b':
+                return "#EFEBEA";
+            default:
+                return "#FFFFFF";
+        }
+    }
+
+    private void SetMonologueStateToCats()
+    {
+        GameObject[] cats = GameObject.FindGameObjectsWithTag("Cat");
+        GameObject[] catsReflection = GameObject.FindGameObjectsWithTag("CatReflection");
+        
+        foreach (var cat in cats)
+        {
+            var playerComponent = cat.GetComponent<Player>();
+            if (playerComponent != null)
+            {
+                playerComponent.SetMonologueState(_isMonologue);
+            }
+        }
+        foreach (var cat in catsReflection)
+        {
+            var playerComponent = cat.GetComponent<Player>();
+            if (playerComponent != null)
+            {
+                playerComponent.SetMonologueState(_isMonologue);
+            }
+        }
+    }
+
 }
