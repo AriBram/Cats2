@@ -174,6 +174,11 @@ public class Player : MonoBehaviour
 
     private void Move(Vector2 direction)
     {
+        if (isMonologue)
+        {
+            return;
+        }
+        
         if (direction.y < 0 && isGrounded && !isPlatform)
         {
             _rb.bodyType = RigidbodyType2D.Dynamic;

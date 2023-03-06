@@ -1658,7 +1658,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4539309814944101449, guid: 5c74d6d0668ddb843ba09a1698ad44a3, type: 3}
       propertyPath: m_Name
-      value: PlayerCatsGosStatic
+      value: PlayerCatsGodStatic
       objectReference: {fileID: 0}
     - target: {fileID: 4539309814944101450, guid: 5c74d6d0668ddb843ba09a1698ad44a3, type: 3}
       propertyPath: m_Sprite
@@ -5420,17 +5420,264 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue:
     sentences:
-    - Meow
-    - Meow meow!
+    - Welcome, my little friend!
+    - 'Press "E" after playing the
+
+      whole phrase to quickly
+
+      move on
+      to the next one'
+    - Where am I?
+    - You're in heaven!
+    - I am very glad to see you here!
+    - 'But I want to go
+
+      back to earth!'
+    - 'I haven''t finished my
+
+      cat stuff yet...'
+    - 'But you''ve already spent
+
+      all your 9 lives!'
+    - Oh my God of Cats!
+    - 'I thought it was just a
+
+      "who''s faster" game,
+
+      not real life!'
+    - 'I am glad that my life
+
+      has been so eventful'
+    - "But if you could give   \nme back at least a\ncouple of my lives,\nwould be
+      very grateful!"
+    - 'After all, I still have
+
+      so many adventures
+
+      in the furfurture!'
+    - 'To return to earth, you
+
+      need to return all
+
+      your 9 lives'
+    - But how?
+    - 'It''s simple! 9 is 3 to
+
+      the power 2!'
+    - '3 to the power 2?
+
+      But what does
+
+      it mean?'
+    - Very simple!
+    - 'This means that you need
+
+      to split in the mirror and
+
+      become 2
+      to the power of 2!'
+    - What?
+    - 'This means that there will
+
+      be 2 more cats
+
+      in the world!'
+    - '1: you,
+
+      2: your copy,
+
+      3: your reflection in the mirror,
+
+      4:
+      copy reflection'
     - WOW!
-    - WOW!
-    - WOW!
-    - WOW!
-    sentencesCount: 0200000001000000
+    - It's so cool!
+    - "But why does the   \npower of two matter\nso much?"
+    - 'Oh, my little cat, this
+
+      is very important!'
+    - 'Power of 2 is like a miracle
+
+      of mathematics'
+    - 'It allows us to increase
+
+      what we have'
+    - 'For example, if you had 2
+
+      fish, then the power of 2
+
+      will allow
+      you to have
+
+      4 fish!'
+    - 'And if at first there were 3
+
+      fish, then the power of 2
+
+      will
+      allow you to have 9
+
+      fish already!'
+    - OMGoC!
+    - 'I think I''ll start using
+
+      the power of 2 in
+
+      my adventures!'
+    - Great!
+    - 'Don''t forget that the power
+
+      of 2 is your secret
+
+      weapon in this
+      world!'
+    - Thanks!
+    - And how do I get lives?
+    - Solving puzzles?
+    - That's right, my dear friend!
+    - 'You only need to complete
+
+      3 levels and solve
+
+      3 puzzles on each
+      level'
+    - 'With each solved puzzle
+
+      you will get one life!'
+    - 'I''m ready for this
+
+      challenge!!!'
+    sentencesCount: 0200000001000000020000000200000001000000050000000100000001000000010000000100000002000000010000000200000003000000050000000200000002000000030000000300000001000000
     letterColors:
+    - oooooooo oo oooooo ooooooo
+    - 'ooooo ddd ooooo ooooooo ooo
+
+      ooooo oooooo oo ooooooo
+
+      oooo oo
+      oo ooo oooo ooo'
+    - bbbbb bb bb
+    - oooooo oo ooooooo
+    - o oo oooo oooo oo ooo ooo ooooo
+    - 'bbb b bbbb bb bb
+
+      bbbb bb bbbbbb'
+    - 'b bbbbbbb bbbbbbbb bb
+
+      bbb bbbbb bbbbbb'
+    - 'ooo oooooo ooooooo ooooo
+
+      ooo oooo o oooooo
+
+'
+    - bb bb ooo oo ooooo
+    - 'b bbbbbbb bb bbb bbbb b
+
+      oooooo ooooooo bbbbb
+
+      bbb bbbb bbbbb'
+    - 'b bb bbbb bbbb bb bbbb
+
+      bbb bbbb bb bbbbbbbb'
+    - "bbb bb bbb bbbbb bbbb   \nbb bbbb bb bbbbb b\nbbbbbb bb bb bbbbbb b\nbbbbb
+      bb bbbb bbbbbbbbb"
+    - 'bbbbb bbbb b bbbbb bbbb
+
+      bb bbbb bbbbbbbbbb
+
+      bb bbb ooooooooooo'
+    - 'oo oooooo oo oooooo ooo
+
+      oooo oo oooooo ooo
+
+      oooo o ooooo'
+    - bbb bbbb
+    - 'oooo ooooooo o oo o oo
+
+      ooo ooooo oo'
+    - 'b bb bbb bbbbb bb
+
+      bbb bbbb bbbb
+
+      bb bbbbb'
+    - oooo ooooooo
+    - 'oooo ooooo oooo ooo oooo
+
+      oo ooooo oo ooo oooooo ooo
+
+      oooooo o
+      oo ooo ooooo oo oo'
+    - bbbbb
+    - 'oooo ooooo oooo ooooo oooo
+
+      oo o oooo oooo
+
+      oo ooo oooooo'
+    - 'oo oooo
+
+      oo oooo ooooo
+
+      oo oooo oooooooooo oo ooo ooooooo
+
+      oo
+      oooo oooooooooo'
     - oooo
-    - oooo ooooo
-    - ooob
+    - bbbb bb bbbbb
+    - "bbb bbb bbbb bbb   \r\nbbbbb bb bbb bbbbbb\r\nbb bbbbb"
+    - 'ooo oo oooooo oooo oooo
+
+      oo oooo oooooooooo'
+    - 'ooooo oo o oo oooo o ooooooo
+
+      oo ooooooooooo'
+    - 'oo oooooo oo oo oooooooo
+
+      oooo oo oooo'
+    - 'ooo oooooooo oo ooo ooo o
+
+      ooooo oooo ooo ooooo oo o
+
+      oooo ooooo
+      ooo oo oooo
+
+      o ooooo'
+    - 'ooo oo oo ooooo ooooo oooo o
+
+      ooooo oooo ooo ooooo oo o
+
+      oooo
+      ooooo ooo oo oooo o
+
+      oooo oooooooo'
+    - oooooo
+    - 'b bbbbb bbbb bbbbb bbbbb
+
+      bbb bbbbb bb b bb
+
+      bb bbbbbbbbbbb'
+    - oooooo
+    - 'ooooo oooooo oooo ooo ooooo
+
+      oo o oo oooo oooooo
+
+      oooooo oo oooo
+      oooooo'
+    - bbbbbbb
+    - bbb bbb bb b bbb bbbbbb
+    - bbbbbbb bbbbbbbb
+    - oooooo oooooo oo oooo ooooooo
+    - 'ooo oooo oooo oo oooooooo
+
+      o oooooo ooo ooooo
+
+      o ooooooo oo oooo
+      ooooo'
+    - 'oooo oooo oooooo oooooo
+
+      ooo oooo ooo ooo ooooo'
+    - 'bbb bbbbb bbb bbbb
+
+      bbbbbbbbbbbb'
   actionIfEndDialogue:
     m_PersistentCalls:
       m_Calls:
@@ -7025,6 +7272,63 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1001 &1494626310
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3259110556782982040, guid: 857f74ca0b6cff0448854f344242fac1, type: 3}
+      propertyPath: m_Name
+      value: OutOfBounce
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259110556782982043, guid: 857f74ca0b6cff0448854f344242fac1, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259110556782982043, guid: 857f74ca0b6cff0448854f344242fac1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259110556782982043, guid: 857f74ca0b6cff0448854f344242fac1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259110556782982043, guid: 857f74ca0b6cff0448854f344242fac1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259110556782982043, guid: 857f74ca0b6cff0448854f344242fac1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259110556782982043, guid: 857f74ca0b6cff0448854f344242fac1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259110556782982043, guid: 857f74ca0b6cff0448854f344242fac1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259110556782982043, guid: 857f74ca0b6cff0448854f344242fac1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259110556782982043, guid: 857f74ca0b6cff0448854f344242fac1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259110556782982043, guid: 857f74ca0b6cff0448854f344242fac1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259110556782982043, guid: 857f74ca0b6cff0448854f344242fac1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 857f74ca0b6cff0448854f344242fac1, type: 3}
 --- !u!1 &1494673290
 GameObject:
   m_ObjectHideFlags: 0

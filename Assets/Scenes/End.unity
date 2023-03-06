@@ -199,6 +199,86 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 29135253}
   m_CullTransparentMesh: 1
+--- !u!1 &151470557
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 151470558}
+  - component: {fileID: 151470560}
+  - component: {fileID: 151470559}
+  m_Layer: 5
+  m_Name: Title
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &151470558
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151470557}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1389031150}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1656.33, y: 150.18}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &151470559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151470557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.3019608, g: 0.13725491, b: 0.2901961, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: ddfb0120289c1a0478b5822cd50ab2b7, type: 3}
+    m_FontSize: 45
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 45
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1.5
+  m_Text: 
+--- !u!222 &151470560
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151470557}
+  m_CullTransparentMesh: 1
 --- !u!1 &283283990
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,7 +607,7 @@ GameObject:
   - component: {fileID: 799136513}
   - component: {fileID: 799136515}
   m_Layer: 0
-  m_Name: CutScene
+  m_Name: LetterTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -547,18 +627,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monologue:
     sentences:
-    - Meow meow meow
+    - 'What will become of the
+
+      cat on earth?'
     letterColors:
-    - dddd dddd dddd
+    - 'dddd dddd dddddd dd ddd
+
+      ddd dd dddddd'
   actionIfStartMonologue:
     m_PersistentCalls:
       m_Calls: []
   actionIfEndMonologue:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 799136515}
-        m_TargetAssemblyTypeName: ExitComponent, Assembly-CSharp
-        m_MethodName: Exit
+      - m_Target: {fileID: 2060034352}
+        m_TargetAssemblyTypeName: MonologueTrigger, Assembly-CSharp
+        m_MethodName: TriggerMonologue
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -568,8 +652,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  isCatScene: 1
-  monologueField: {fileID: 1499018224}
+  isCatScene: 0
+  isTitle: 1
+  isOneTime: 0
+  monologueField: {fileID: 151470559}
 --- !u!4 &799136514
 Transform:
   m_ObjectHideFlags: 0
@@ -823,6 +909,7 @@ GameObject:
   - component: {fileID: 1389031154}
   - component: {fileID: 1389031153}
   - component: {fileID: 1389031152}
+  - component: {fileID: 1389031155}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -842,14 +929,15 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 151470558}
   - {fileID: 1499018223}
   m_Father: {fileID: 1920332797}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -347.83, y: -154}
-  m_SizeDelta: {x: 1676.33, y: 224}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1676.33, y: 869.33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1389031152
 MonoBehaviour:
@@ -866,16 +954,16 @@ MonoBehaviour:
   m_Padding:
     m_Left: 10
     m_Right: 10
-    m_Top: 20
+    m_Top: 5
     m_Bottom: 10
-  m_ChildAlignment: 0
+  m_ChildAlignment: 3
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 1
-  m_ChildControlHeight: 1
-  m_ChildScaleWidth: 1
-  m_ChildScaleHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
 --- !u!114 &1389031153
 MonoBehaviour:
@@ -890,14 +978,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.8941177, g: 0.8588236, b: 0.83921576, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -2076472474, guid: 309c09508a0a0d14a98c6e5f5508cc7b, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -915,6 +1003,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1389031149}
   m_CullTransparentMesh: 1
+--- !u!114 &1389031155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389031149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 0
+  m_VerticalFit: 0
 --- !u!1 &1499018222
 GameObject:
   m_ObjectHideFlags: 0
@@ -946,12 +1048,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1389031150}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 1656.33, y: 591.04}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1499018224
 MonoBehaviour:
@@ -975,7 +1077,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: ddfb0120289c1a0478b5822cd50ab2b7, type: 3}
-    m_FontSize: 40
+    m_FontSize: 30
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 2
@@ -985,7 +1087,7 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1.5
+    m_LineSpacing: 1.8
   m_Text: 
 --- !u!222 &1499018225
 CanvasRenderer:
@@ -1106,6 +1208,121 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1.75, y: 2.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2060034350
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2060034353}
+  - component: {fileID: 2060034352}
+  - component: {fileID: 2060034351}
+  - component: {fileID: 2060034354}
+  m_Layer: 0
+  m_Name: Letter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2060034351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060034350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de5be1df4d0b4f1439a9b4c1c165a5e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2060034352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060034350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 928cb97ad13e5d643a07ef3e75d8e364, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monologue:
+    sentences:
+    - The cat's life after he returns to earth will be full of joy and paw-some events.
+      He will appreciate every moment of his life and will not risk his lives as
+      before. The cat will pay more attention to his friends and family, and will
+      also help other animals. He will live happily ever after, thanks to his wisdom
+      and experience gained during the trials. The cat will be loved and respected
+      by all the animals in the area for the great knowledge of ^2 given to him from
+      heaven. And hiss-story will become a legend that will be passed down from generation
+      to generation...
+    letterColors:
+    - "ddd ddddd dddd ddddd dd ddddddd dd ddddd dddd dd dddd dd ddd ddd oooooooo
+      ddddddd dd dddd dddddddddd ddddd dddddd dd ddd dddd ddd dddd ddd dddd ddd ddddd
+      dd ddddddd ddd ddd dddd ddd dddd ddddddddd dd ddd ddddddd ddd ddddddd ddd dddd
+      dddd dddd ddddd dddddddd dd dddd dddd ddddddd dddd dddddd dddddd dd ddd dddddd
+      ddd dddddddddd dddddd dddddd ddd ddddddd ddd ddd dddd dd ddddd ddd ddddddddd
+      dd ddd ddd ddddddd dd ddd dddd ddd ddd ddddd ddddddddd dd oo ddddd dd ddd dddd
+      ddddddd ddd oooooooooo dddd dddddd d dddddd dddd dddd dd dddddd dddd dddd dddddddddd
+      dd ddddddddddddd\r"
+  actionIfStartMonologue:
+    m_PersistentCalls:
+      m_Calls: []
+  actionIfEndMonologue:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2060034354}
+        m_TargetAssemblyTypeName: LoadSceneComponent, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  isCatScene: 0
+  isTitle: 0
+  isOneTime: 0
+  monologueField: {fileID: 1499018224}
+--- !u!4 &2060034353
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060034350}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2060034354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060034350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d05f5ae86f8d61428d10edb92f09573, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameScene: Menu
+  action:
+    m_PersistentCalls:
+      m_Calls: []

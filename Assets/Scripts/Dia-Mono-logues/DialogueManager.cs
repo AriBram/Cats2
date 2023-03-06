@@ -222,7 +222,7 @@ public class DialogueManager : MonoBehaviour
             {
                 _monologueTrigger.MonologueField.text += "<color=" + SetLetterColor(currentLetterColorsCharArr[i]) +
                                                          ">" + currentSentenceCharArr[i] + "</color>";
-                yield return new WaitForSeconds(0.08f);
+                yield return new WaitForSeconds(0.08f); //0.08
             }
             else
             {

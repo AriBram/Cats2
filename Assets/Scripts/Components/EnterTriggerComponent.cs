@@ -13,7 +13,7 @@ public class EnterTriggerComponent : MonoBehaviour
     {
         if (other.gameObject.CompareTag(tag))
         {
-            action?.Invoke(other.gameObject);
+            DoAction(other);
         }
     }
     
@@ -21,8 +21,13 @@ public class EnterTriggerComponent : MonoBehaviour
     {
         if (other.gameObject.CompareTag(tag) && !isTriggerEnterOnly)
         {
-            action?.Invoke(other.gameObject);
+            DoAction(other);
         }
+    }
+
+    public void DoAction(Collider2D  other)
+    {
+        action?.Invoke(other.gameObject);
     }
     
     [Serializable]

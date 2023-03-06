@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ChangePropAnimatorStatus : MonoBehaviour
+public class ChangePropAnimatorStatusComponent : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private string propKey;
