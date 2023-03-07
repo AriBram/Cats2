@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class DialogueManager : MonoBehaviour
 {
     [SerializeField] private float delayPauseInSeconds = 2;
+    [SerializeField] private float delayLettersApp = 0.08f;
 
     private Queue<string> _sentences;
     private Queue<string> _letterColors;
@@ -14,8 +15,7 @@ public class DialogueManager : MonoBehaviour
 
     private DialogueTrigger _dialogueTrigger;
     private MonologueTrigger _monologueTrigger;
-    private bool _isDialog;
-    private bool _isMonologue;
+    private LogKey _logKey = LogKey.Nothing;
     private bool _allowedShowNext;
     private bool _is1Field = true;
     private int _sentencesIndex;
@@ -24,24 +24,19 @@ public class DialogueManager : MonoBehaviour
     private string _currentLetterColors;
     private string _endDialogueKey = "Other";
 
-    enum LogKey
+    public enum LogKey
     {
+        Nothing,
         Dialogue,
         Monologue
     }
 
     private static readonly int IsEndDialogueAnim = Animator.StringToHash("is-end");
 
-    public string EndDialogueKey
+    public LogKey LOGKey
     {
-        get => _endDialogueKey;
-        set => _endDialogueKey = value;
-    }
-
-    public bool IsDialog
-    {
-        get => _isDialog;
-        set => _isDialog = value;
+        get => _logKey;
+        set => _logKey = value;
     }
 
     private void Awake()
@@ -61,34 +56,98 @@ public class DialogueManager : MonoBehaviour
 
     private void Skip()
     {
-        if (_isDialog || _isMonologue)
+        if (_logKey != LogKey.Nothing)
         {
             if (_allowedShowNext)
             {
-                ShowNextSentence(_isMonologue ? LogKey.Monologue : LogKey.Dialogue);
+                ShowNextSentence();
+            }
+            else if (!_isAllText)
+            {
+                ShowAllText();
             }
         }
+
+        /*if (_logKey == LogKey.Dialogue)
+        {
+            if (_sentences.Count == 0 || _letterColors.Count == 0)
+            {
+                EndDialogue();
+            }
+            else if (_logKey == LogKey.Monologue)
+            {
+                if (_sentences.Count == 0 || _letterColors.Count == 0)
+                {
+                    EndMonologue();
+                }
+            }
+        }*/
     }
 
-    /*private void ShowAllText(LogKey logKey)
+    private void ShowAllText()
     {
         _isAllText = true;
-        if (logKey == LogKey.Dialogue)
+
+        /*if (_logKey == LogKey.Dialogue)
         {
-            _dialogueTrigger.DialogueField.text = _currentSentence;
-        }
-        else
+            if (_is1Field)
+            {
+                _dialogueTrigger.Dialogue1Field.text = _currentSentence;
+            }
+            else
+            {
+                _dialogueTrigger.Dialogue2Field.text = _currentSentence;
+            }
+        } else if (_logKey == LogKey.Monologue)
         {
             _monologueTrigger.MonologueField.text = _currentSentence;
+        }*/
+
+        var currentSentenceCharArr = _currentSentence.ToCharArray();
+        var currentLetterColorsCharArr = _currentLetterColors.ToCharArray();
+
+        if (_logKey == LogKey.Dialogue)
+        {
+            _dialogueTrigger.Dialogue1Field.text = "";
+            _dialogueTrigger.Dialogue2Field.text = "";
         }
-        
+        else if (_logKey == LogKey.Monologue)
+        {
+            _monologueTrigger.MonologueField.text = "";
+        }
+
+        for (int i = 0; i < currentSentenceCharArr.Length; i++)
+        {
+            if (_logKey == LogKey.Dialogue)
+            {
+                if (_is1Field)
+                {
+                    _dialogueTrigger.Dialogue1Field.text +=
+                        "<color=" + SetLetterColor(currentLetterColorsCharArr[i]) + ">" +
+                        currentSentenceCharArr[i] + "</color>";
+                }
+                else
+                {
+                    _dialogueTrigger.Dialogue2Field.text +=
+                        "<color=" + SetLetterColor(currentLetterColorsCharArr[i]) + ">" +
+                        currentSentenceCharArr[i] + "</color>";
+                }
+            }
+            else if (_logKey == LogKey.Monologue)
+            {
+                _monologueTrigger.MonologueField.text += "<color=" + SetLetterColor(currentLetterColorsCharArr[i]) +
+                                                         ">" + currentSentenceCharArr[i] + "</color>";
+            }
+        }
+
+
         _allowedShowNext = true;
-    }*/
+    }
 
     public void StartDialogue(DialogueTrigger dialogueTrigger)
     {
         _isAllText = false;
-        _isDialog = true;
+        _logKey = LogKey.Dialogue;
 
         _dialogueTrigger = dialogueTrigger;
         _sentencesIndex = 0;
@@ -106,12 +165,12 @@ public class DialogueManager : MonoBehaviour
             _letterColors.Enqueue(sentence);
         }
 
-        ShowNextSentence(LogKey.Dialogue);
+        ShowNextSentence();
     }
-    
+
     public void StartMonologue(MonologueTrigger monologueTrigger)
     {
-        _isMonologue = true;
+        _logKey = LogKey.Monologue;
 
         SetMonologueStateToCats();
 
@@ -131,15 +190,15 @@ public class DialogueManager : MonoBehaviour
             _letterColors.Enqueue(sentence);
         }
 
-        ShowNextSentence(LogKey.Monologue);
+        ShowNextSentence();
     }
 
-    private void ShowNextSentence(LogKey logKey)
+    private void ShowNextSentence()
     {
         _isAllText = false;
         _allowedShowNext = false;
-        
-        if (logKey == LogKey.Dialogue)
+
+        if (_logKey == LogKey.Dialogue)
         {
             if (_sentences.Count == 0 || _letterColors.Count == 0)
             {
@@ -152,14 +211,15 @@ public class DialogueManager : MonoBehaviour
                     _sentencesIndex++;
                     _is1Field = !_is1Field;
                 }
+
                 _dialogueTrigger.Dialogue.SentencesCount[_sentencesIndex]--;
 
                 _currentSentence = _sentences.Dequeue();
                 _currentLetterColors = _letterColors.Dequeue();
-                StartCoroutine(ShowSentenceByLetter(LogKey.Dialogue));
+                StartCoroutine(ShowSentenceByLetter());
             }
         }
-        else
+        else if (_logKey == LogKey.Monologue)
         {
             if (_sentences.Count == 0 || _letterColors.Count == 0)
             {
@@ -171,14 +231,14 @@ public class DialogueManager : MonoBehaviour
 
                 _currentSentence = _sentences.Dequeue();
                 _currentLetterColors = _letterColors.Dequeue();
-                StartCoroutine(ShowSentenceByLetter(LogKey.Monologue));
+                StartCoroutine(ShowSentenceByLetter());
             }
         }
     }
 
-    IEnumerator ShowSentenceByLetter(LogKey logKey)
+    IEnumerator ShowSentenceByLetter()
     {
-        if (logKey == LogKey.Dialogue)
+        if (_logKey == LogKey.Dialogue)
         {
             if (_is1Field)
             {
@@ -204,25 +264,33 @@ public class DialogueManager : MonoBehaviour
 
         for (int i = 0; i < currentSentenceCharArr.Length; i++)
         {
-            if (!_isAllText && logKey == LogKey.Dialogue)
+            if (_isAllText)
+            {
+                yield break;
+            }
+
+            if (!_isAllText && _logKey == LogKey.Dialogue)
             {
                 if (_is1Field)
                 {
-                    _dialogueTrigger.Dialogue1Field.text += "<color=" + SetLetterColor(currentLetterColorsCharArr[i]) + ">" +
-                                                           currentSentenceCharArr[i] + "</color>";
+                    _dialogueTrigger.Dialogue1Field.text +=
+                        "<color=" + SetLetterColor(currentLetterColorsCharArr[i]) + ">" +
+                        currentSentenceCharArr[i] + "</color>";
                 }
                 else
                 {
-                    _dialogueTrigger.Dialogue2Field.text += "<color=" + SetLetterColor(currentLetterColorsCharArr[i]) + ">" +
-                                                           currentSentenceCharArr[i] + "</color>";
+                    _dialogueTrigger.Dialogue2Field.text +=
+                        "<color=" + SetLetterColor(currentLetterColorsCharArr[i]) + ">" +
+                        currentSentenceCharArr[i] + "</color>";
                 }
-                yield return new WaitForSeconds(0.08f);
+
+                yield return new WaitForSeconds(delayLettersApp);
             }
-            else if (logKey == LogKey.Monologue)
+            else if (_logKey == LogKey.Monologue)
             {
                 _monologueTrigger.MonologueField.text += "<color=" + SetLetterColor(currentLetterColorsCharArr[i]) +
                                                          ">" + currentSentenceCharArr[i] + "</color>";
-                yield return new WaitForSeconds(0.08f); //0.08
+                yield return new WaitForSeconds(delayLettersApp);
             }
             else
             {
@@ -231,23 +299,23 @@ public class DialogueManager : MonoBehaviour
         }
 
         yield return null;
-        StartCoroutine(NextSentence(logKey));
+        StartCoroutine(NextSentence());
         _allowedShowNext = true;
     }
 
-    IEnumerator NextSentence(LogKey logKey)
+    IEnumerator NextSentence()
     {
         yield return new WaitForSeconds(delayPauseInSeconds);
         if (_allowedShowNext)
         {
-            ShowNextSentence(logKey);
+            ShowNextSentence();
         }
     }
 
     private void EndDialogue()
     {
         _dialogueTrigger.IsOpen = false;
-        _isDialog = false;
+        _logKey = LogKey.Nothing;
         _dialogueTrigger.ActionAfterEndDialogue();
     }
 
@@ -255,12 +323,11 @@ public class DialogueManager : MonoBehaviour
     {
         _monologueTrigger.MonologueField.text = "";
         _monologueTrigger.IsOpen = false;
+        _logKey = LogKey.Nothing;
         _monologueTrigger.ActionAfterEndMonologue();
-        
-        _isMonologue = false;
         SetMonologueStateToCats();
     }
-    
+
     private string SetLetterColor(char code)
     {
         switch (code)
@@ -284,23 +351,23 @@ public class DialogueManager : MonoBehaviour
     {
         GameObject[] cats = GameObject.FindGameObjectsWithTag("Cat");
         GameObject[] catsReflection = GameObject.FindGameObjectsWithTag("CatReflection");
-        
+
         foreach (var cat in cats)
         {
             var playerComponent = cat.GetComponent<Player>();
             if (playerComponent != null)
             {
-                playerComponent.SetMonologueState(_isMonologue);
+                playerComponent.SetMonologueState(_logKey == LogKey.Monologue);
             }
         }
+
         foreach (var cat in catsReflection)
         {
             var playerComponent = cat.GetComponent<Player>();
             if (playerComponent != null)
             {
-                playerComponent.SetMonologueState(_isMonologue);
+                playerComponent.SetMonologueState(_logKey == LogKey.Monologue);
             }
         }
     }
-
 }

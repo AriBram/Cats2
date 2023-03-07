@@ -75,7 +75,7 @@ public class DialogueTrigger : MonoBehaviour
     public void TriggerDialogue()
     {
         gameObject.SetActive(true);
-        if (!_isOpen && !DialogueManager.Instance.IsDialog)
+        if (!_isOpen && DialogueManager.Instance.LOGKey != DialogueManager.LogKey.Dialogue)
         {
             gameObject.SetActive(true);
             DialogueManager.Instance.StartDialogue(this);

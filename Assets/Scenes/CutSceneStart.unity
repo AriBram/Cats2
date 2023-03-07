@@ -1674,7 +1674,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4539309814944101451, guid: 5c74d6d0668ddb843ba09a1698ad44a3, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4539309814944101451, guid: 5c74d6d0668ddb843ba09a1698ad44a3, type: 3}
       propertyPath: m_LocalScale.x
@@ -1771,6 +1771,10 @@ PrefabInstance:
     - target: {fileID: 5995393243734778180, guid: 5c74d6d0668ddb843ba09a1698ad44a3, type: 3}
       propertyPath: m_LocalScale.x
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090825324226374448, guid: 5c74d6d0668ddb843ba09a1698ad44a3, type: 3}
+      propertyPath: m_RootOrder
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6961019238790763953, guid: 5c74d6d0668ddb843ba09a1698ad44a3, type: 3}
       propertyPath: m_IsActive
@@ -2099,7 +2103,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4539309814944101451, guid: 5c74d6d0668ddb843ba09a1698ad44a3, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4539309814944101451, guid: 5c74d6d0668ddb843ba09a1698ad44a3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2268,6 +2272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delayPauseInSeconds: 2
+  delayLettersApp: 0.08
 --- !u!4 &373257942
 Transform:
   m_ObjectHideFlags: 0
@@ -2281,7 +2286,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &469969417
 GameObject:
@@ -5423,12 +5428,9 @@ MonoBehaviour:
   dialogue:
     sentences:
     - Welcome, my little friend!
-    - 'Press "E" after playing the
+    - 'Press "E" to show the whole
 
-      whole phrase to quickly
-
-      move on
-      to the next one'
+      phrase or skip the phrase'
     - Where am I?
     - You're in heaven!
     - I am very glad to see you here!
@@ -5552,12 +5554,9 @@ MonoBehaviour:
     sentencesCount: 0200000001000000020000000200000001000000050000000100000001000000010000000100000002000000010000000200000003000000050000000200000002000000030000000300000001000000
     letterColors:
     - oooooooo oo oooooo ooooooo
-    - 'ooooo ddd ooooo ooooooo ooo
+    - 'ooooo ddd oo oooo ooo ooooo
 
-      ooooo oooooo oo ooooooo
-
-      oooo oo
-      oo ooo oooo ooo'
+      oooooo oo oooo ooo oooooo'
     - bbbbb bb bb
     - oooooo oo ooooooo
     - o oo oooo oooo oo ooo ooo ooooo
@@ -5713,7 +5712,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &887613715
 MonoBehaviour:
@@ -6260,7 +6259,7 @@ RectTransform:
   m_Children:
   - {fileID: 469969418}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -7287,7 +7286,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3259110556782982043, guid: 857f74ca0b6cff0448854f344242fac1, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3259110556782982043, guid: 857f74ca0b6cff0448854f344242fac1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7994,7 +7993,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6762282241455755646, guid: d597e1e0b75ad584ca43aaa72f6faa1c, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6762282241455755646, guid: d597e1e0b75ad584ca43aaa72f6faa1c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10441,83 +10440,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1 &1960889026
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1960889029}
-  - component: {fileID: 1960889028}
-  - component: {fileID: 1960889027}
-  m_Layer: 0
-  m_Name: InputEventSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1960889027
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1960889026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
-  m_MoveRepeatDelay: 0.5
-  m_MoveRepeatRate: 0.1
-  m_XRTrackingOrigin: {fileID: 0}
-  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_PointAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_MoveAction: {fileID: -8784545083839296357, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_SubmitAction: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_CancelAction: {fileID: 7727032971491509709, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_LeftClickAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_MiddleClickAction: {fileID: -2185481485913320682, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_RightClickAction: {fileID: -4090225696740746782, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_DeselectOnBackgroundClick: 1
-  m_PointerBehavior: 0
---- !u!114 &1960889028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1960889026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 1
-  m_DragThreshold: 10
---- !u!4 &1960889029
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1960889026}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2084571930
 GameObject:
   m_ObjectHideFlags: 0

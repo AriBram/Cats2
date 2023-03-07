@@ -8,20 +8,19 @@ public class MonologueTrigger : MonoBehaviour
 {
     [SerializeField] private Monologue monologue;
 
-    [FormerlySerializedAs("actionIfEndDialogue")]
+    [FormerlySerializedAs("actions")]
     [SerializeField] private UnityEvent actionIfStartMonologue;
     [SerializeField] private UnityEvent actionIfEndMonologue;
 
     [Header("Other Settings")] 
     [SerializeField] private bool isCatScene;
-    [SerializeField] private bool isTitle;
+    [FormerlySerializedAs("isTitle")] [SerializeField] private bool isStatic;
     [SerializeField] private bool isOneTime;
 
     [FormerlySerializedAs("dialogueField")]
     [Header("Text Fields")]
     [SerializeField] private Text monologueField;
-
-    private Animator _animator;
+    
     private bool _isOpen;
     private bool _isCanTrigger = true;
 
@@ -35,12 +34,6 @@ public class MonologueTrigger : MonoBehaviour
     {
         get => monologueField;
         set => monologueField = value;
-    }
-
-    public Animator Animator
-    {
-        get => _animator;
-        set => _animator = value;
     }
 
     public bool IsCanTrigger
@@ -57,8 +50,7 @@ public class MonologueTrigger : MonoBehaviour
 
     private void Start()
     {
-        _animator = GetComponent<Animator>();
-        if (isCatScene || isTitle)
+        if (isCatScene || isStatic)
         {
             TriggerMonologue();
         }
@@ -70,7 +62,7 @@ public class MonologueTrigger : MonoBehaviour
         {
             actionIfStartMonologue?.Invoke();
             gameObject.SetActive(true);
-            if (!_isOpen && !DialogueManager.Instance.IsDialog)
+            if (!_isOpen && DialogueManager.Instance.LOGKey != DialogueManager.LogKey.Monologue)
             {
                 gameObject.SetActive(true);
                 DialogueManager.Instance.StartMonologue(this);
@@ -86,12 +78,17 @@ public class MonologueTrigger : MonoBehaviour
 
     public void ActionAfterEndMonologue()
     {
-        if(isTitle)
+        if(isStatic)
         {
             monologueField.text = Monologue.Sentences[0];
         }
+        else
+        {
+            gameObject.SetActive(false);
+        }
+        
+        print(DialogueManager.Instance.LOGKey);
         actionIfEndMonologue?.Invoke();
-        gameObject.SetActive(false);
     }
 }
 
