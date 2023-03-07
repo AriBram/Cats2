@@ -14,6 +14,7 @@ TagManager:
   - Light
   - CatReflection
   - CatCopy
+  - KeyForCopy
   layers:
   - Default
   - TransparentFX

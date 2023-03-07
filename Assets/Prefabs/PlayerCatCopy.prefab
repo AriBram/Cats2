@@ -912,7 +912,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4059252eb23361248be4c756fb287b0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tag: Key
+  tag: KeyForCopy
   action:
     m_PersistentCalls:
       m_Calls:

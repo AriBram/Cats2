@@ -7,9 +7,9 @@ public class LivesUI : MonoBehaviour
     [SerializeField] private Text livesField;
     private string _livesString;
 
-    private void Awake()
+    private void Start()
     {
-        if (SceneManager.GetActiveScene().name == "Level1")
+        if (SceneManager.GetActiveScene().name is "Level1" or "CutSceneStart")
         {
             PlayerPrefs.SetString("LivesString", "0");
             
